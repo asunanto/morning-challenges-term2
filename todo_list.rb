@@ -12,7 +12,41 @@
 # To accomplish this, you should define two classes - a TodoList class
 # and a TodoListItem class.
 class TodoList
+    attr_accessor :title, :description
+    def initialize(name, description = "")
+        @title = name
+        @items = []
+        @description = description
+    end
+    def delete_item(text)
+        @items.delete_if {|item| item.text == text}
+    end
+    def add_item (text)
+        item = TodoListItem.new(text)
+        @items.push(item)
+    end
+    def count
+        @items.count
+    end
+    def update_done(text)
+        get_item(text).is_done = true
+    end
+    def get_item(text)
+        @items.find {|item| item.text == text}
+    end
+    def all_done?
+        @items.each {|item| return false if not item.done?}
+            return true
+    end
 end
 
 class TodoListItem
+    attr_accessor :text, :is_done
+    def initialize(text)
+        @text = text
+        @is_done = false
+    end
+    def done?
+        @is_done
+    end
 end
