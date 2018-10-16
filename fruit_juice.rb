@@ -22,17 +22,31 @@
 
 class Jug
     def initialize(capacity)
+        @capacity = capacity
+        @concentrations = {}
+        @total_amount = 0
     end
 
     def add(amount, type)
+        @total_amount += amount
+        if @total_amount > @capacity
+            amount = @capacity - (@total_amount-amount)
+            @total_amount = @capacity
+        end
+        @concentrations.has_key?(type) ? @concentrations[type] += amount : @concentrations[type] = amount
     end
 
     def pour(amount)
+        @concentrations.each { |key, val| @concentrations[key] *= (@total_amount - amount) / @total_amount.to_f } 
+        @total_amount -= amount
     end
 
     def getTotalAmount
+        @total_amount
     end
 
     def getConcentration(type)
+        return 0 if @concentrations[type] == nil
+        @concentrations[type]/@total_amount.to_f
     end
 end

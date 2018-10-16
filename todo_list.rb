@@ -13,10 +13,10 @@
 # and a TodoListItem class.
 class TodoList
     attr_accessor :title, :description
-    def initialize(name, description = "")
+    def initialize(name)
         @title = name
         @items = []
-        @description = description
+        @description = ""
     end
     def delete_item(text)
         @items.delete_if {|item| item.text == text}
