@@ -27,14 +27,57 @@
 #
 class Baseball
     def initialize
+        @score = [0, 0]
+        @toggle = 1
+        @outs_counter = 0
+        @bases_loaded = []
     end    
     # A public method accepting the result of an at-bat
     # @param {string} entry - The result of an at-bat 
     # Acceptable values: ('single', 'double', 'triple', 'homerun' or 'out') 
+    def addBase(value)
+        for i in 0...@bases_loaded.length
+            @bases_loaded[i] += value
+            @score[@toggle] += 1 if @bases_loaded[i] >= 4     
+        end
+    
+        @bases_loaded.delete_if { |x| x >= 4 }
+        @bases_loaded << value
+    end
+    
     def addEntry(entry)
+        case entry
+        when 'single' 
+            addBase(1)      
+        when 'double'
+            addBase(2)
+        when 'triple'
+            addBase(3)
+        when 'homerun'
+            @score[@toggle] += 1
+            @score[@toggle] += @bases_loaded.length
+            @bases_loaded = []
+        when 'out'
+            @outs_counter += 1
+            if @outs_counter >= 3
+                @bases_loaded = []
+                @outs_counter = 0
+                @toggle ^= 1
+            end
+        end
     end
     # A public method returning the current score
     # Format: "Home: [HOME_SCORE] Away: [AWAY_SCORE]"
     def to_s
+        "Home: #{@score[0]} Away: #{@score[1]}"
     end
 end
+
+
+# baseball.addEntry('single')
+# baseball.addEntry('single')
+# baseball.addEntry('single')
+# baseball.addEntry('single')
+# puts baseball.bases_loaded
+
+
