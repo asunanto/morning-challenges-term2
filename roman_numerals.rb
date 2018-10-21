@@ -23,8 +23,39 @@
 #   M	    1000
 #
 class RomanNumerals
-    def self.fromRoman(number)
+    ROMAN_NUMBERS = {
+        1000 => "M",  
+        900 => "CM",  
+        500 => "D",  
+        400 => "CD",
+        100 => "C",  
+        90 => "XC",  
+        50 => "L",  
+        40 => "XL",  
+        10 => "X",  
+        9 => "IX",  
+        5 => "V",  
+        4 => "IV",  
+        1 => "I",  
+         
+    }
+    def self.fromRoman(str)
+        result = 0
+        ROMAN_NUMBERS.values.each do |roman|
+            while str.start_with?(roman)
+                result += ROMAN_NUMBERS.invert[roman]
+                str.delete_prefix!(roman)
+                # str = str.slice(roman.length, str.length)    
+            end
+        end
+        return result
     end
-    def self.toRoman(number)
+    def self.toRoman(n)
+        roman = ""
+        ROMAN_NUMBERS.each do |value, letter|
+            roman << letter*(n / value)
+            n = n % value
+        end
+        return roman
     end
 end
