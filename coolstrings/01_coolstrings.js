@@ -24,7 +24,7 @@ var assert = require('assert');
 describe('coolstrings', () => {
     it('checks that coolstrings cannot be changed', function() {
       try {
-        coolstrings = 'abc';
+        coolstrings = 'coolstrings';
       } catch (err) {
         //do nothing
       }
