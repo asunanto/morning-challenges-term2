@@ -4,8 +4,12 @@
 // mocha 05_sum_numbers.js
 
 function findWinner(players) {
-    // Your code here
-
+    let player_scores = []
+    for (player of players){
+        player_scores.push(player.scores.reduce((a,b) => a + b, 0)) //sums scores and pushes it to an array
+    }
+    i = player_scores.indexOf(Math.max(player_scores)) // finds index of max score
+    return players[i].name
 }
 
 
