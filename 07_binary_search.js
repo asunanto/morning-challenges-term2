@@ -17,9 +17,20 @@ Example:
 */
 
 function binarySearch(sortedArray, searchValue) {
-    // Your code here
-}
+    // initial values for start, middle and end
+    let start = 0
+    let stop = sortedArray.length - 1
+    let middle = Math.ceil((start + stop) / 2) // rounds up midpoint index 
+    let counter = 1
 
+    // While the middle is not equal out search value
+    while (sortedArray[middle] !== searchValue) {
+        searchValue < sortedArray[middle] ? stop = middle - 1 : start = middle + 1 //updates start or stop points
+        middle = Math.ceil((start + stop) / 2) // recalculate middle on every iteration
+        counter++
+    }
+    return [middle, counter]
+}
 
 let assert = require('assert')
 
