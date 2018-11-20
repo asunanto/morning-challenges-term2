@@ -24,19 +24,19 @@ function binarySearch(sortedArray, searchValue) {
     let counter = 1
 
     // While the middle is not equal out search value
-    while (sortedArray[middle] !== searchValue) {
+    while (sortedArray[middle] !== searchValue && start < stop) {
         searchValue < sortedArray[middle] ? stop = middle - 1 : start = middle + 1 //updates start or stop points
         middle = Math.ceil((start + stop) / 2) // recalculate middle on every iteration
         counter++
     }
-    return [middle, counter]
+    return [(sortedArray[middle] !== searchValue) ? -1 : middle , counter]
 }
 
 let assert = require('assert')
 
 describe('Count loops', function () {
     it('Should count one step when search values is in the middle', function () {
-        assert.deepEqual([3, 1], binarySearch([1, 3, 7, 10, 14, 19, 31], 10))
+        assert.deepEqual([3, 1], binarySearch([1, 3, 7, 14, 19, 31], 10))
     })
     it('Should count one step when search value is only value', function () {
         assert.deepEqual([0, 1], binarySearch([1], 1))
