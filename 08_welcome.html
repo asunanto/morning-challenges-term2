@@ -13,31 +13,44 @@
  -->
 <!doctype html>
 <html>
-  <head>
-    <title>Welcome</title>
 
-    <style>
+<head>
+  <title>Welcome</title>
+
+  <style>
     body {
       text-align: center;
     }
+    input {
+      padding: 20px;
+    }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
+  <p><input id="firstname" type="text" placeholder="Enter your first name"></p>
+  <p><input id="lastname" type="text" placeholder="Enter your last name"></p>
+  <h1 id="first"></h1><h1 id="last"></h1>
+</body>
 
-    <p><input type="text" placeholder="Enter your name"></p>
+<script>
+  const firstname = document.getElementById('firstname')
+  const lastname = document.getElementById('lastname')
+  const firstMessage = document.getElementById('first')
+  const lastMessage = document.getElementById('last')
 
-    <h1></h1>
-
-  </body>
-
-  <script>
-  const name = document.querySelector('input')
-  const welcomeMessage = document.querySelector('h1')
-  name.onkeyup = function () {
+  firstname.onkeyup = function () {
     // hint: name.value gives you the current text in the input box
-    welcomeMessage.textContent = `Welcome, ${name.value}!`;
+    firstMessage.textContent = `Welcome, ${firstname.value.toUpperCase() }!`;
+    if (firstname.value == '') firstMessage.textContent = '';
   }
-  </script>
+
+  lastname.onkeyup = function () {
+    // hint: name.value gives you the current text in the input box
+    lastMessage.textContent = `${lastname.value.toUpperCase()}`
+    if (lastname.value == '') lastMessage.textContent = '';
+   
+  }
+</script>
 
 </html>
