@@ -8,7 +8,8 @@ If the input array is empty consider it as: [0] (array with a zero).
 */
 
 function oddOrEven(array) {
-    //enter code here
+    let sum = array.reduce((a, b) => a + b, 0)
+    return (sum%2 === 0) ? 'even' : 'odd'
 }
 
 var assert = require('assert');
