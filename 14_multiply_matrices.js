@@ -16,10 +16,20 @@ Hint:
 Try drawing the function out first if the arrays are a little confusing.
 */
 
-function multiplyMatrices(matrixOne, matrixTwo) {
-    // Your code here    
-}
 
+function multiplyMatrices(matrixOne, matrixTwo) {
+    let result = []
+    for (i=0; i<matrixOne.length; i++) {
+        if (matrixOne[i].length !== matrixTwo.length) return null // if col of matrix1 is not equal to row of matrix 2 cant perform product
+        let row_result = [] 
+        for (j=0; j<matrixTwo[0].length ; j++) {
+            var rowBycol = matrixOne[i].map((a, x) => a * matrixTwo[x][j]) //multiply martrix1 row by matrix2 col
+            row_result.push( rowBycol.reduce((a,b) => a+b, 0) ) //sums up row by col multiplication
+        } // if rows have more than one element push an array else push a number
+        result.push(row_result)
+    }
+    return result 
+}
 
 const assert = require ('assert');
 
