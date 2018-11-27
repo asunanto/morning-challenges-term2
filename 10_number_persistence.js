@@ -12,7 +12,13 @@ Because 9*9*9 = 729, 7*2*9 = 126, 1*2*6 = 12, and 1*2 = 2
 */
 
 function persistence(num) {
-    //enter code here
+    num = num.toString().split('')
+    let counter = 0
+    while (num.length > 1) {
+        num = num.reduce( (a,b) =>  a * parseInt(b) , 1).toString().split('')
+        counter++
+    }
+    return counter
 }
 
 
