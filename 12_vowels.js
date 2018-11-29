@@ -15,7 +15,15 @@ mocha 12_vowels.js
 
 
 function vowels (string) {
-    // Your code here
+    // let vowel_list = 'aeiouAEIOU';
+    // let vcount = [];
+    
+    // for(var x = 0; x < string.length ; x++) {
+    //   if (vowel_list.indexOf(string[x]) !== -1) vcount.push(string[x]);
+    // }
+    
+    // return vcount
+    return string.match(/[aeiou]/gi)
 }
 
 
