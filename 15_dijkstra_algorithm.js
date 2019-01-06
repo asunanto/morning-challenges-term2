@@ -50,7 +50,7 @@ const problem = {
   },
   D: {
     E: 4,
-    F: 9
+    F: 7
   },
   E: {
     F: 4
@@ -58,25 +58,78 @@ const problem = {
   F: {}
 };
 
+// const dijkstra = (graph, start, end) => {
+//   let current_position = start
+//   let result = {distance:0, path: [start]}
+//   let minKey
+//   while (current_position != end) {
+//     try {
+//       minKey = Object.keys(problem[current_position]).reduce((a, b) => problem[current_position][a] < problem[current_position][b] ? a : b)
+//     }
+//     catch {
+//       return {distance:Infinity, path: []}
+//     }
+//     result.path.push(minKey)
+//     result.distance += problem[current_position][minKey]
+//     current_position = minKey
+//   }
+//   return result
+// };
 const dijkstra = (graph, start, end) => {
-  // Your code here
-};
+  if (start === end) return {path:[start], distance:0}
+  let totalCosts = {}
+  totalCosts[start] = 0
+  let minPQ = graph[start]
+  let prevNodes = {}
+  for (let node in graph) {
+    if (node != start) totalCosts[node] = Infinity
+  }
+  while (Object.keys(minPQ).length !== 0) {
+    let min = Object.keys(minPQ).reduce((a, b) => minPQ[a] < minPQ[b] ? a : b) // find smallest path   
+    totalCosts[min] = minPQ[min]
+    delete minPQ[min]
+    for (let node in graph[min]) { // looks for adjacent nodes from smallest node
+      let altPath = totalCosts[min] + graph[min][node] 
+      if (altPath < totalCosts[node]) {
+        totalCosts[node] = altPath
+        prevNodes[node] = min
+        minPQ[node] = altPath
+      }
+    }
+  }
+  if (totalCosts[end] == Infinity) return {path:[], distance:Infinity}
+
+  // display nodes
+  let node = end
+  let path = []
+  while (node != undefined) {
+    path.unshift(node)
+    node = prevNodes[node]
+  }
+  path.unshift(start)
+  console.log(prevNodes)
+  console.log(totalCosts)
+  return {path, distance: totalCosts[end]}
+}
 
 
-var assert = require('assert');
+
+
+
+let assert = require('assert');
 
 describe('Find shortest path', function () {
   context('When there is a valid path and start is different from end', function () {
-    it('Should return the distance 11 from A to F with path A,B,D,E,F', function () {
+    it('Should return the distance 10 from A to F with path A,B,D,E,F', function () {
       assert.deepEqual({
-        distance: 11,
-        path: ['A', 'B', 'D', 'E', 'F']
+        distance: 10,
+        path: ['A', 'B', 'D', 'F']
       }, dijkstra(problem, 'A', 'F'))
     })
     it('Should return the distance 9 from B to F with path B,D,E,F', function () {
       assert.deepEqual({
-        distance: 9,
-        path: ['B', 'D', 'E', 'F']
+        distance: 8,
+        path: ['B', 'D', 'F']
       }, dijkstra(problem, 'B', 'F'))
     })
 
